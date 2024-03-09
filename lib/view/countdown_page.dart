@@ -3,25 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CountDownPage extends StatelessWidget {
-  const CountDownPage({super.key, required this.pageIndex});
+  const CountDownPage({
+    required this.pageIndex,
+    super.key,
+  });
 
   final int pageIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PageTimerProvider>(builder: (context, timer, child) {
-      return GestureDetector(
-        onTap: () => timer.startTimer(pageIndex),
-        child: Container(
-          color: Colors.white,
-          child: Center(
-            child: Text(
-              timer.getTimerText(pageIndex),
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+    return Consumer<PageTimerProvider>(
+      builder: (context, timerProvider, child) {
+        TimerData data = timerProvider.getTimerData(pageIndex);
+        return GestureDetector(
+          onTap: () => timerProvider.startTimer(pageIndex),
+          child: Container(
+            color: Colors.white,
+            child: Center(
+              child: Text(
+                data.display,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
