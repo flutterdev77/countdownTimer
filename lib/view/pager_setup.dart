@@ -24,7 +24,7 @@ class PagerSetup extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    CountdownPage(pageIndex: index),
+                    CountDownPage(pageIndex: index),
                     const Spacer(),
                   ],
                 )),
