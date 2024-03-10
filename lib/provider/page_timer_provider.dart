@@ -4,11 +4,13 @@ import 'dart:async';
 class PageTimerProvider with ChangeNotifier {
   Map<int, TimerData> _timersData = {};
 
-  TimerData getTimerData(int pageIndex) =>
-      _timersData.putIfAbsent(pageIndex, () => TimerData());
+  TimerData getTimerData(int pageIndex, int startTime) =>
+      _timersData.putIfAbsent(pageIndex, () => TimerData(
+        start: startTime,
+      ),);
 
-  void startTimer(int pageIndex) {
-    TimerData data = getTimerData(pageIndex);
+  void startTimer(int pageIndex, int countDown) {
+    TimerData data = getTimerData(pageIndex, countDown);
     data.display = "Ready";
     notifyListeners();
     data.timer?.cancel(); // Cancel any existing timer
@@ -54,6 +56,10 @@ class PageTimerProvider with ChangeNotifier {
 }
 
 class TimerData {
+  TimerData({
+    required this.start,
+  });
+
   Timer? timer;
   int start = 60;
   String display = 'Tap to start';
